@@ -1,8 +1,8 @@
 const searchCityHTML = document.getElementById('searchCity')
 const buttonSearch = document.getElementById('buttonSearch')
-const divTemperature = document.getElementById('temperature')
-const divCityName = document.getElementById('cityName')
-const regionNameHTML = document.getElementById('regionName')
+const temperatureHTML = document.getElementById('temperature')
+const cityHTML = document.getElementById('cityName')
+const regionHTML = document.getElementById('regionName')
 const countryHTML = document.getElementById('country')
 
 const locationAndClimate = {
@@ -14,7 +14,7 @@ const locationAndClimate = {
 
 buttonSearch.addEventListener('click',displayWeather)
 
-document.addEventListener('DOMContentLoaded',callAPI)
+document.addEventListener('DOMContentLoaded',initialDisplay)
 
 async function updateObjectLocationAndClimate(cityName) {
     const data = await updateWeather(cityName)
@@ -25,19 +25,22 @@ async function updateObjectLocationAndClimate(cityName) {
     locationAndClimate.temperature = data.current.temp_c
 }
 
-async function callAPI() {
-    await updateObjectLocationAndClimate('Caruaru')
+function updateWeatherDisplay() {
+    temperatureHTML.innerHTML = `${locationAndClimate.temperature.toLocaleString('pt-br')}°`
     
-
-    divTemperature.innerHTML = `${locationAndClimate.temperature.toLocaleString('pt-br')}°`
-    
-    divCityName.innerHTML = locationAndClimate.city 
+    cityHTML.innerHTML = locationAndClimate.city 
 
      
-    regionNameHTML.innerHTML = locationAndClimate.region
+    regionHTML.innerHTML = locationAndClimate.region
 
     
     countryHTML.innerHTML = locationAndClimate.country
+}
+
+async function initialDisplay() {
+    await updateObjectLocationAndClimate('Caruaru')
+    
+    updateWeatherDisplay()
 }
 
 async function updateWeather(nameOfTheCitySearched) { 
@@ -52,18 +55,8 @@ async function displayWeather() {
 
     await updateObjectLocationAndClimate(nameOfTheCitySearched)
     
-
-    divTemperature.innerHTML = `${locationAndClimate.temperature.toLocaleString('pt-br')}°`
+    updateWeatherDisplay()
     
-    divCityName.innerHTML = locationAndClimate.city 
-
-     
-    regionNameHTML.innerHTML = locationAndClimate.region
-
-    
-    countryHTML.innerHTML = locationAndClimate.country
-    
-
 }
 
 
