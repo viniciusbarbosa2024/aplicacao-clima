@@ -16,15 +16,17 @@ buttonSearch.addEventListener('click',displayWeather)
 
 document.addEventListener('DOMContentLoaded',callAPI)
 
-async function callAPI() {
-    const res = await fetch(`http://api.weatherapi.com/v1/current.json?key=2f8b9850c91c4231ab8231351241209&q=Caruaru`)
-
-    const data = await res.json()
+async function updateObjectLocationAndClimate(cityName) {
+    const data = await updateWeather(cityName)
 
     locationAndClimate.city = data.location.name
     locationAndClimate.region = data.location.region
     locationAndClimate.country = data.location.country
     locationAndClimate.temperature = data.current.temp_c
+}
+
+async function callAPI() {
+    await updateObjectLocationAndClimate('Caruaru')
     
 
     divTemperature.innerHTML = `${locationAndClimate.temperature.toLocaleString('pt-br')}°`
@@ -48,25 +50,19 @@ async function updateWeather(nameOfTheCitySearched) {
 async function displayWeather() {
     let nameOfTheCitySearched = searchCityHTML.value
 
-    const data = await updateWeather(nameOfTheCitySearched)
-
-    let temp = data.current.temp_c
-    divTemperature.innerHTML = `${temp.toLocaleString('pt-br')}°`
-
-    // const location = {
-    //     city: data.location.name,
-    //     region: data.location.region,
-    //     country: data.location.country
-    // }
-
+    await updateObjectLocationAndClimate(nameOfTheCitySearched)
     
-    // divCityName.innerHTML = location.city 
+
+    divTemperature.innerHTML = `${locationAndClimate.temperature.toLocaleString('pt-br')}°`
+    
+    divCityName.innerHTML = locationAndClimate.city 
 
      
-    // regionNameHTML.innerHTML = location.region
+    regionNameHTML.innerHTML = locationAndClimate.region
 
     
-    // countryHTML.innerHTML = location.country
+    countryHTML.innerHTML = locationAndClimate.country
+    
 
 }
 
