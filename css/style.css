@@ -66,13 +66,24 @@ main {
 }
 
 #temperatureAndCityName {
+    padding: 20px;
+
+    border-radius: 10px;
+    
     color: white;
+    background-color: rgba(255, 255, 255, 0.055);
 }
 
 #temperature {
     font-size: 5rem;
+
+    text-align: center;
 }
 
 #location {
     text-align: center;
+}
+
+#country {
+    padding: 10px;
 }

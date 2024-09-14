@@ -3,6 +3,7 @@ const buttonSearch = document.getElementById('buttonSearch')
 const divTemperature = document.getElementById('temperature')
 const divCityName = document.getElementById('cityName')
 const regionNameHTML = document.getElementById('regionName')
+const countryHTML = document.getElementById('country')
 
 
 buttonSearch.addEventListener('click',displayWeather)
@@ -12,6 +13,15 @@ fetch(`http://api.weatherapi.com/v1/current.json?key=2f8b9850c91c4231ab823135124
 .then((data) => {
     let temp = data.current.temp_c
     divTemperature.innerHTML = `${temp.toLocaleString('pt-br')}°`
+
+    let cityName = data.location.name
+    divCityName.innerHTML = cityName
+
+    let regionName = data.location.region
+    regionNameHTML.innerHTML = regionName
+
+    let countryName = data.location.country
+    countryHTML.innerHTML = countryName
 })
 
 async function updateWeather(nameOfTheCitySearched) { 
@@ -34,6 +44,10 @@ async function displayWeather() {
 
     let regionName = data.location.region
     regionNameHTML.innerHTML = regionName
+
+    let countryName = data.location.country
+    countryHTML.innerHTML = countryName
+
 
     console.log(data)
 
