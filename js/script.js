@@ -5,24 +5,38 @@ const divCityName = document.getElementById('cityName')
 const regionNameHTML = document.getElementById('regionName')
 const countryHTML = document.getElementById('country')
 
+const locationAndClimate = {
+    city: '',
+    region:'',
+    country: '',
+    temperature: ''
+}
 
 buttonSearch.addEventListener('click',displayWeather)
 
-fetch(`http://api.weatherapi.com/v1/current.json?key=2f8b9850c91c4231ab8231351241209&q=Caruaru`)
-.then((res) => res.json())
-.then((data) => {
-    let temp = data.current.temp_c
-    divTemperature.innerHTML = `${temp.toLocaleString('pt-br')}°`
+document.addEventListener('DOMContentLoaded',callAPI)
 
-    let cityName = data.location.name
-    divCityName.innerHTML = cityName
+async function callAPI() {
+    const res = await fetch(`http://api.weatherapi.com/v1/current.json?key=2f8b9850c91c4231ab8231351241209&q=Caruaru`)
 
-    let regionName = data.location.region
-    regionNameHTML.innerHTML = regionName
+    const data = await res.json()
 
-    let countryName = data.location.country
-    countryHTML.innerHTML = countryName
-})
+    locationAndClimate.city = data.location.name
+    locationAndClimate.region = data.location.region
+    locationAndClimate.country = data.location.country
+    locationAndClimate.temperature = data.current.temp_c
+    
+
+    divTemperature.innerHTML = `${locationAndClimate.temperature.toLocaleString('pt-br')}°`
+    
+    divCityName.innerHTML = locationAndClimate.city 
+
+     
+    regionNameHTML.innerHTML = locationAndClimate.region
+
+    
+    countryHTML.innerHTML = locationAndClimate.country
+}
 
 async function updateWeather(nameOfTheCitySearched) { 
     const res = await fetch(`http://api.weatherapi.com/v1/current.json?key=2f8b9850c91c4231ab8231351241209&q=${nameOfTheCitySearched}`)
@@ -39,18 +53,20 @@ async function displayWeather() {
     let temp = data.current.temp_c
     divTemperature.innerHTML = `${temp.toLocaleString('pt-br')}°`
 
-    let cityName = data.location.name
-    divCityName.innerHTML = cityName
+    // const location = {
+    //     city: data.location.name,
+    //     region: data.location.region,
+    //     country: data.location.country
+    // }
 
-    let regionName = data.location.region
-    regionNameHTML.innerHTML = regionName
+    
+    // divCityName.innerHTML = location.city 
 
-    let countryName = data.location.country
-    countryHTML.innerHTML = countryName
+     
+    // regionNameHTML.innerHTML = location.region
 
-
-    console.log(data)
-
+    
+    // countryHTML.innerHTML = location.country
 
 }
 
