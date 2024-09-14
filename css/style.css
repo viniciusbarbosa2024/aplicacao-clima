@@ -72,3 +72,7 @@ main {
 #temperature {
     font-size: 5rem;
 }
+
+#location {
+    text-align: center;
+}

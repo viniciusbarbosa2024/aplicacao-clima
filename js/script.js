@@ -2,6 +2,7 @@ const searchCityHTML = document.getElementById('searchCity')
 const buttonSearch = document.getElementById('buttonSearch')
 const divTemperature = document.getElementById('temperature')
 const divCityName = document.getElementById('cityName')
+const regionNameHTML = document.getElementById('regionName')
 
 
 buttonSearch.addEventListener('click',displayWeather)
@@ -30,6 +31,9 @@ async function displayWeather() {
 
     let cityName = data.location.name
     divCityName.innerHTML = cityName
+
+    let regionName = data.location.region
+    regionNameHTML.innerHTML = regionName
 
     console.log(data)
 
